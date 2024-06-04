@@ -1,12 +1,21 @@
 import sys
 
 def main():
-    # Uncomment this block to pass the first stage
-    sys.stdout.write("$ ")
-    sys.stdout.flush()
+    while True:
+        # Print the shell prompt
+        sys.stdout.write("$ ")
+        sys.stdout.flush()
 
-    # Wait for user input
-    input()
+        # Read user input
+        command = input().strip()
+
+        # Check if the command is recognized
+        # For now, we assume all commands are unrecognized
+        if command:
+            print(f"{command}: command not found")
+
+        # Exit after handling the command (for this stage only)
+        break
 
 if __name__ == "__main__":
     main()
