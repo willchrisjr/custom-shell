@@ -1,6 +1,9 @@
 import sys
 import os
 
+# List of shell builtins
+builtins = ["cd", "pwd", "echo", "exit", "type"]
+
 def main():
     while True:
         # Print the shell prompt
@@ -40,6 +43,15 @@ def main():
                     sys.exit(exit_code)
                 except ValueError:
                     print("exit: numeric argument required")
+        elif cmd_name == "type":
+            if len(args) != 1:
+                print("type: expected one argument")
+            else:
+                target_cmd = args[0]
+                if target_cmd in builtins:
+                    print(f"{target_cmd} is a shell builtin")
+                else:
+                    print(f"{target_cmd} not found")
         else:
             # Handle unrecognized commands
             print(f"{cmd_name}: command not found")
