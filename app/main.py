@@ -1,5 +1,6 @@
 import sys
 import os
+import subprocess
 
 # List of shell builtins
 builtins = ["cd", "pwd", "echo", "exit", "type"]
@@ -69,8 +70,17 @@ def main():
                     else:
                         print(f"bash: type: {target_cmd}: not found")
         else:
-            # Handle unrecognized commands
-            print(f"{cmd_name}: command not found")
+            # Handle external programs
+            executable_path = find_executable(cmd_name)
+            if executable_path:
+                try:
+                    result = subprocess.run([executable_path] + args, check=True, text=True, capture_output=True)
+                    print(result.stdout, end="")
+                except subprocess.CalledProcessError as e:
+                    print(e.stderr, end="")
+            else:
+                # Handle unrecognized commands
+                print(f"{cmd_name}: command not found")
 
 if __name__ == "__main__":
     main()
