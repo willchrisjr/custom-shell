@@ -39,10 +39,13 @@ def main():
             if len(args) != 1:
                 print("cd: expected one argument")
             else:
+                target_dir = args[0]
+                if target_dir == "~":
+                    target_dir = os.environ.get("HOME", "")
                 try:
-                    os.chdir(args[0])
+                    os.chdir(target_dir)
                 except FileNotFoundError:
-                    print(f"cd: no such file or directory: {args[0]}")
+                    print(f"cd: {target_dir}: No such file or directory")
         elif cmd_name == "pwd":
             print(os.getcwd())
         elif cmd_name == "echo":

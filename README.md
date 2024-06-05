@@ -1,4 +1,4 @@
-Sure! Let's document the changes in the code and update the `README.md` to reflect the new stage of the project.
+
 
 ### Code Documentation and Explanation
 
