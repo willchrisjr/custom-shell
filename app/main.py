@@ -4,6 +4,18 @@ import os
 # List of shell builtins
 builtins = ["cd", "pwd", "echo", "exit", "type"]
 
+def find_executable(command):
+    """
+    Search for the command in the directories listed in the PATH environment variable.
+    Return the path to the command if found, otherwise return None.
+    """
+    path_dirs = os.environ.get("PATH", "").split(":")
+    for directory in path_dirs:
+        potential_path = os.path.join(directory, command)
+        if os.path.isfile(potential_path) and os.access(potential_path, os.X_OK):
+            return potential_path
+    return None
+
 def main():
     while True:
         # Print the shell prompt
@@ -51,7 +63,11 @@ def main():
                 if target_cmd in builtins:
                     print(f"{target_cmd} is a shell builtin")
                 else:
-                    print(f"{target_cmd} not found")
+                    executable_path = find_executable(target_cmd)
+                    if executable_path:
+                        print(f"{target_cmd} is {executable_path}")
+                    else:
+                        print(f"bash: type: {target_cmd}: not found")
         else:
             # Handle unrecognized commands
             print(f"{cmd_name}: command not found")
