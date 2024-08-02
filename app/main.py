@@ -2,7 +2,7 @@ import sys
 import os
 import subprocess
 
-# List of shell builtins
+# List of the shell builtins
 builtins = ["cd", "pwd", "echo", "exit", "type"]
 
 def find_executable(command):
